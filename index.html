@@ -88,16 +88,14 @@
         <div style="font-size:18px;font-weight:bold;margin-bottom:10px;">
           ${data['名称']}
         </div>
-        <div style="max-height:120px; overflow-y:auto; font-size:14px; line-height:1.4;">
-          ${data['担当者'] || ''}
+        <div style="width:250px; max-height:150px; overflow-y:auto; font-size:14px; line-height:1.4; border-top:1px solid #ccc; padding-top:4px;">
+          ${data['概要'] || ''}
         </div>
       `;
-      
       infoWindow[i] = new google.maps.InfoWindow({
-        content: info
+        content: info,
+        maxWidth: 300   // ← InfoWindowの幅を強制（任意）
       });
-
-
 
         markerEvent(i);
       }
