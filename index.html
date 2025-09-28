@@ -83,11 +83,21 @@
           position: markerLatLng,
           map: map
         });
+      
+      var info = `
+        <div style="font-size:18px;font-weight:bold;margin-bottom:10px;">
+          ${data['名称']}
+        </div>
+        <div style="max-height:120px; overflow-y:auto; font-size:14px; line-height:1.4;">
+          ${data['概要'] || ''}
+        </div>
+      `;
+      
+      infoWindow[i] = new google.maps.InfoWindow({
+        content: info
+      });
 
-        var info = '<div style="font-size:18px;font-weight:bold;margin-bottom:10px;">' + data['名称'] + '</div>';
-        infoWindow[i] = new google.maps.InfoWindow({
-          content: info
-        });
+
 
         markerEvent(i);
       }
