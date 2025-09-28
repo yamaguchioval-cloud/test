@@ -118,8 +118,30 @@ function addMarker(i, data) {
           if (!latitude) { continue; }
           addMarker(i, markerData[i]);
           var name = markerData[i]['名称'];
+          
+          // 追加：安全のための簡易エスケープ（まだ無ければファイルのどこかに置いてください）
+          function escapeHtml(s){
+            return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+          }
+          
+          // ……setData内のループの該当行を次に差し替え……
+          const person = markerData[i]['担当者']
+            ? ` <span style="color:#666;font-size:12px;">（${escapeHtml(markerData[i]['担当者'])}）</span>`
+            : '';
+          
+          const preview = markerData[i]['概要']
+            ? `<div style="color:#666;font-size:12px;margin:2px 0 6px 1.6em;">
+                 ${escapeHtml(String(markerData[i]['概要']).slice(0,60))}…
+               </div>`
+            : '';
+          
+          sidebar_html += `
+            <div style="margin-bottom:6px;">
+              <b>${i + 1}</b>
+              <a href="javascript:openWindow(${i})">${escapeHtml(name)}</a>${person}
+              ${preview}
+            </div>`;
 
-          sidebar_html += `<b>${i + 1}</b> <a href="javascript:openWindow(${i})">${name}<\/a><br />`;
         }
 
         document.getElementById("sidebar").innerHTML = `<a target="_blank" href="https://docs.google.com/spreadsheets/d/${SHEET_ID}/edit?usp=sharing">元データ(Google スプレッドシート)</a><br /><br />` + sidebar_html;
