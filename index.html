@@ -84,50 +84,11 @@ function addMarker(i, data) {
   if (Number.isNaN(lat) || Number.isNaN(lng)) return;
 
   const pos = new google.maps.LatLng({lat, lng});
-
-  // 🎨 担当者ごとに色アイコンを指定
-  let iconUrl = "http://maps.google.com/mapfiles/ms/icons/red-dot.png"; // デフォルト赤
-  if (data['担当者'] === "野尻") {
-    iconUrl = "http://maps.google.com/mapfiles/ms/icons/purple-dot.png"; // 薄紫
-  } else if (data['担当者'] === "中津川") {
-    iconUrl = "http://maps.google.com/mapfiles/ms/icons/pink-dot.png"; // ピンク
-  }
-
   marker[i] = new google.maps.Marker({
     position: pos,
     map: map,
-    title: data['名称'] || '',
-    icon: {
-      url: iconUrl,
-      scaledSize: new google.maps.Size(32, 32) // ピンのサイズ（任意調整）
-    }
+    title: data['名称'] || ''
   });
-
-  // InfoWindowの内容
-  const name = data['名称'] || '名称不明';
-  const person = data['担当者']
-    ? `<span style="color:#666; margin-left:8px; font-size:14px;">(${data['担当者']})</span>`
-    : '';
-
-  const summary = data['概要']
-    ? `<div style="margin-top:6px; max-height:120px; overflow-y:auto;">${data['概要']}</div>`
-    : '';
-
-  const info = `
-    <div style="font-size:16px;font-weight:bold;margin-bottom:6px;">
-      ${name} ${person}
-    </div>
-    ${summary}
-  `;
-
-  infoWindow[i] = new google.maps.InfoWindow({
-    content: info,
-    maxWidth: 300
-  });
-
-  markerEvent(i);
-}
-
 
   // 名称と担当者を並べる
   const name = data['名称'] || '名称不明';
