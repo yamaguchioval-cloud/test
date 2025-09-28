@@ -73,7 +73,6 @@
 
         request.send();
       }
-
 function addMarker(i, data) {
   const lat = Number(data['緯度']);
   const lng = Number(data['経度']);
@@ -86,24 +85,31 @@ function addMarker(i, data) {
     title: data['名称'] || ''
   });
 
-  // 名称と担当者を横並びに表示
+  // 名称と担当者を並べる
   const name = data['名称'] || '名称不明';
-  const person = data['担当者'] ? `<span style="color:#666; margin-left:8px; font-size:14px;">(${data['担当者']})</span>` : '';
+  const person = data['担当者'] 
+    ? `<span style="color:#666; margin-left:8px; font-size:14px;">(${data['担当者']})</span>` 
+    : '';
 
   const summary = data['概要']
-    ? `<div style="margin-top:6px; max-height:120px; overflow-y:auto;">${escapeHtml(data['概要'])}</div>`
+    ? `<div style="margin-top:6px; max-height:120px; overflow-y:auto;">${data['概要']}</div>`
     : '';
 
   const info = `
-    <div style="font-size:16px;font-weight:bold;">
+    <div style="font-size:16px;font-weight:bold;margin-bottom:6px;">
       ${name} ${person}
     </div>
     ${summary}
   `;
 
-  infoWindow[i] = new google.maps.InfoWindow({ content: info, maxWidth: 300 });
+  infoWindow[i] = new google.maps.InfoWindow({
+    content: info,
+    maxWidth: 300
+  });
+
   markerEvent(i);
 }
+
 
       function setData(markerData){
         var sidebar_html = "";
