@@ -12,18 +12,22 @@
         margin: 0;
         padding: 0;
       }
-      #sidebar {
-        position: absolute;
-        top: 10%;
-        left: 72%;
-        width: 25%;
-        height: 40%;
-        border: 1px solid #666;
-        padding: 6px;
-        background-color: white;
-        font-family: Meriyo UI;
-        font-size: 14px;
-      }
+#sidebar {
+  position: absolute;
+  top: 10%;
+  left: 72%;
+  width: 25%;
+  height: 40%; /* ←高さを決めているのでここに収まらないときスクロール */
+  border: 1px solid #666;
+  padding: 6px;
+  background-color: white;
+  font-family: "Meiryo UI", sans-serif;
+  font-size: 14px;
+
+  overflow-y: auto;   /* 縦スクロール */
+  overflow-x: hidden; /* 横スクロールは不要なら隠す */
+}
+
     </style>
   </head>
   <body>
